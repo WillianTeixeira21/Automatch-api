@@ -1,0 +1,6 @@
+@AutoMatch.API_HostAddress = http://localhost:5037
+
+GET {{AutoMatch.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
