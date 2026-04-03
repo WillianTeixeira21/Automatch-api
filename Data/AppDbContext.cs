@@ -8,6 +8,7 @@ public class AppDbContext : DbContext
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
     public DbSet<Loja>     Lojas     { get; set; }
+    public DbSet<Usuario>  Usuarios  { get; set; }
     public DbSet<Veiculo>  Veiculos  { get; set; }
     public DbSet<Cliente>  Clientes  { get; set; }
     public DbSet<Visita>   Visitas   { get; set; }

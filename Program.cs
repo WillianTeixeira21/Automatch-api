@@ -56,6 +56,17 @@ using (var scope = app.Services.CreateScope())
     // Força criação das tabelas se não existirem
     var sql = db.Database.GetConnectionString();
     db.Database.ExecuteSqlRaw(@"
+        CREATE TABLE IF NOT EXISTS ""Usuarios"" (
+            ""Id"" SERIAL PRIMARY KEY,
+            ""Nome"" VARCHAR(100) NOT NULL,
+            ""Email"" VARCHAR(150) NOT NULL,
+            ""Telefone"" VARCHAR(20),
+            ""Cpf"" VARCHAR(14),
+            ""SenhaHash"" VARCHAR(256) NOT NULL,
+            ""Tipo"" VARCHAR(10) NOT NULL DEFAULT 'cliente',
+            ""LojaId"" INT,
+            ""CriadoEm"" TIMESTAMP NOT NULL DEFAULT NOW()
+        );
         CREATE TABLE IF NOT EXISTS ""Lojas"" (
             ""Id"" SERIAL PRIMARY KEY,
             ""Nome"" VARCHAR(100) NOT NULL,

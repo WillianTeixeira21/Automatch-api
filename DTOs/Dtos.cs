@@ -1,5 +1,33 @@
 namespace AutoMatch.API.DTOs;
 
+public class LoginDto
+{
+    public string Email { get; set; } = "";
+    public string Senha { get; set; } = "";
+}
+
+public class CadastroClienteDto
+{
+    public string  Nome     { get; set; } = "";
+    public string  Email    { get; set; } = "";
+    public string  Telefone { get; set; } = "";
+    public string? Cpf      { get; set; }
+    public string  Senha    { get; set; } = "";
+}
+
+public class CadastroLojistaDto
+{
+    public string  Nome     { get; set; } = "";
+    public string  Email    { get; set; } = "";
+    public string  Telefone { get; set; } = "";
+    public string  Senha    { get; set; } = "";
+    public string  LojaNome { get; set; } = "";
+    public string? Cnpj     { get; set; }
+    public string? Cidade   { get; set; }
+    public string? Estado   { get; set; }
+    public string  Plano    { get; set; } = "basico";
+}
+
 public class VeiculoDto
 {
     public int      Id          { get; set; }
