@@ -27,10 +27,13 @@ public class FotosController : ControllerBase
     [HttpPost("upload")]
     [RequestSizeLimit(10 * 1024 * 1024)]
     [Consumes("multipart/form-data")] // 10MB max
-    public async Task<IActionResult> Upload([FromForm] IFormFile file, [FromForm] int veiculoId)
+    public async Task<IActionResult> Upload([FromForm] FotoUploadRequest request)
     {
         // Validações
-        if (file == null || file.Length == 0)
+        var file = request.File;
+var veiculoId = request.VeiculoId;
+
+if (file == null || file.Length == 0)
             return BadRequest(new { message = "Nenhum arquivo enviado." });
 
         var allowedTypes = new[] { "image/jpeg", "image/png", "image/webp" };
@@ -157,4 +160,9 @@ public class CapaRequest
 {
     public int VeiculoId { get; set; }
     public string FotoUrl { get; set; } = "";
+}
+public class FotoUploadRequest
+{
+    public IFormFile File { get; set; } = null!;
+    public int VeiculoId { get; set; }
 }
