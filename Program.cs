@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using AutoMatch.API.Data;
+using AutoMatch.API.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +10,9 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new() { Title = "AutoMatch API", Version = "v1" });
 });
+
+// ── Cloudinary ──
+builder.Services.AddSingleton<CloudinaryService>();
 
 // Railway injeta DATABASE_URL automaticamente
 var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
@@ -53,7 +57,6 @@ using (var scope = app.Services.CreateScope())
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     db.Database.EnsureCreated();
     
-    // Força criação das tabelas se não existirem
     var sql = db.Database.GetConnectionString();
     db.Database.ExecuteSqlRaw(@"
         CREATE TABLE IF NOT EXISTS ""Usuarios"" (
@@ -97,6 +100,7 @@ using (var scope = app.Services.CreateScope())
             ""Portas"" INT,
             ""FotoUrl"" VARCHAR(500),
             ""Opcionais"" VARCHAR(500),
+            ""Fotos"" VARCHAR(5000) DEFAULT '',
             ""Destaque"" BOOLEAN DEFAULT FALSE,
             ""LojaId"" INT DEFAULT 1,
             ""CriadoEm"" TIMESTAMP NOT NULL DEFAULT NOW()
@@ -140,6 +144,13 @@ using (var scope = app.Services.CreateScope())
         VALUES (1, '13Car Multimarcas', '12.345.678/0001-90', '(11) 3722-4545', '5511983970098', '13car@13car.com.br', 'Av. Eliseu de Almeida, 432 - Butantã', 'São Paulo', 'SP', 'enterprise')
         ON CONFLICT (""Id"") DO NOTHING;
     ");
+    
+    // Adicionar coluna Fotos se não existir (para bancos já criados)
+    try {
+        db.Database.ExecuteSqlRaw(@"
+            ALTER TABLE ""Veiculos"" ADD COLUMN IF NOT EXISTS ""Fotos"" VARCHAR(5000) DEFAULT '';
+        ");
+    } catch { /* coluna já existe */ }
 }
 
 app.Run();

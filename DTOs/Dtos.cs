@@ -45,6 +45,7 @@ public class VeiculoDto
     public int      Portas      { get; set; }
     public string   FotoUrl     { get; set; } = "";
     public string[] Opcionais   { get; set; } = [];
+    public string[] Fotos { get; set; } = Array.Empty<string>();
     public bool     Destaque    { get; set; }
 }
 

@@ -20,6 +20,13 @@ public class Veiculo
     public int Portas { get; set; }
     [MaxLength(500)] public string FotoUrl     { get; set; } = "";
     [MaxLength(500)] public string Opcionais   { get; set; } = "";
+    
+    /// <summary>
+    /// URLs das fotos separadas por vírgula (mesma lógica de Opcionais).
+    /// FotoUrl continua como foto principal (capa) para compatibilidade.
+    /// </summary>
+    [MaxLength(5000)] public string Fotos { get; set; } = "";
+    
     public bool Destaque { get; set; } = false;
     public int LojaId { get; set; }
     public DateTime CriadoEm { get; set; } = DateTime.UtcNow;

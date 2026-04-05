@@ -80,6 +80,9 @@ public class VeiculosController : ControllerBase
         Tipo = v.Tipo, Cambio = v.Cambio, Combustivel = v.Combustivel,
         Potencia = v.Potencia, Portas = v.Portas, FotoUrl = v.FotoUrl,
         Opcionais = v.Opcionais.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(o => o.Trim()).ToArray(),
+        Fotos = string.IsNullOrEmpty(v.Fotos)
+            ? Array.Empty<string>()
+            : v.Fotos.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(f => f.Trim()).ToArray(),
         Destaque = v.Destaque
     };
 }
