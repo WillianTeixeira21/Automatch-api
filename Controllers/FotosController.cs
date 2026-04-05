@@ -25,7 +25,8 @@ public class FotosController : ControllerBase
     /// Retorna: { url: "https://..." }
     /// </summary>
     [HttpPost("upload")]
-    [RequestSizeLimit(10 * 1024 * 1024)] // 10MB max
+    [RequestSizeLimit(10 * 1024 * 1024)]
+    [Consumes("multipart/form-data")] // 10MB max
     public async Task<IActionResult> Upload([FromForm] IFormFile file, [FromForm] int veiculoId)
     {
         // Validações
