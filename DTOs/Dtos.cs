@@ -44,9 +44,13 @@ public class VeiculoDto
     public string   Potencia    { get; set; } = "";
     public int      Portas      { get; set; }
     public string   FotoUrl     { get; set; } = "";
-    public string[] Opcionais   { get; set; } = [];
-    public string[] Fotos { get; set; } = Array.Empty<string>();
+    public string[] Opcionais   { get; set; } = Array.Empty<string>();
+    public string[] Fotos       { get; set; } = Array.Empty<string>();
     public bool     Destaque    { get; set; }
+    // Dados da loja (para o cliente saber de onde é o veículo)
+    public string   LojaNome    { get; set; } = "";
+    public string   Cidade      { get; set; } = "";
+    public string   Estado      { get; set; } = "";
 }
 
 public class VeiculoFiltroDto
@@ -56,6 +60,8 @@ public class VeiculoFiltroDto
     public decimal? PrecoMax { get; set; }
     public bool?    Destaque { get; set; }
     public int?     LojaId   { get; set; }
+    public string?  Cidade   { get; set; }
+    public string?  Estado   { get; set; }
     public int      Page     { get; set; } = 1;
     public int      PerPage  { get; set; } = 20;
 }
